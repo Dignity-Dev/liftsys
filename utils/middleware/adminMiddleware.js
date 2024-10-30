@@ -4,22 +4,31 @@ const authorize = (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.redirect("/sign-in?error=Authorization token is missing");
+            // console.log('No token found');
+            res.redirect("/sign-in");
+            return res.status(401).json({ message: 'Authorization token is missing' });
         }
+        // Log the JWT secret for debugging purposes
+        // console.log('JWT Secret in middleware:', process.env.SECRET);
 
-        const decodedToken = jwt.verify(token, process.env.SECRET);
+        // Verify the token using the secret
+        const decodedToken = jwt.verify(token, process.env.SECRET); // Use the secret from your .env file
+        // console.log('Decoded token:', decodedToken);
 
         if (decodedToken.userType !== 'admin') {
-            return res.redirect("/sign-in?error=Access denied: Insufficient permissions");
+            // console.log('Access denied due to insufficient permissions');
+            res.redirect("/sign-in");
+            return res.status(403).json({ message: 'Access denied: Insufficient permissions' });
         }
 
-        req.user = decodedToken;
-        next();
+        req.user = decodedToken; // Pass the decoded token to the request object
+        next(); // Proceed to the next middleware or route handler
 
     } catch (error) {
-        res.clearCookie('token');
-        return res.redirect("/sign-in?error=Invalid or expired token");
+        // console.log('Invalid or expired token:', error.message);
+        return res.status(401).json({ message: 'Invalid or expired token' });
     }
 };
+
 
 module.exports = authorize;
