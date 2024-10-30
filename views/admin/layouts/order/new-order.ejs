@@ -1,0 +1,146 @@
+<!-- container-fluid -->
+
+<div class="container-fluid">
+
+    <div class="card basic-data-table">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Manage All Requests</h5>
+        </div>
+        <div class="card-body">
+            <% if (error) { %>
+                <p class="text-danger mb-4">
+                    <%= error %>
+                </p>
+                <!-- Use Bootstrap class for red text -->
+                <% }else{ %>
+                    <div class="table-responsive">
+                        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+                            <thead>
+                                <tr>
+                                    <th scope="col">S/N</th>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Receiver</th>
+                                    <th scope="col">Driver Status</th>
+                                    <th scope="col">Pickup/delivery</th>
+                                    <th scope="col">Vehicle/W/D</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Order Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (pendingOrders && pendingOrders.length > 0) { %>
+                                    <% pendingOrders.forEach((order, index) => { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= order.orderID %>
+                                            </td>
+                                            <td>
+                                                <a href="/customer/<%= order.userID %>">
+                                                    <%= order.userID %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%= order.receiverFullName %><br>
+                                                    <%= order.receiverPhoneNumber %>
+                                            </td>
+                                            <td><span class="badge bg-danger">
+                                                    <%= order.driverOrderStatus %>
+                                                </span></td>
+                                            <td><i class="ri-navigation-fill"></i>
+                                                <%= order.pickup %>
+                                                    <br>
+                                                    <i class="ri-map-pin-fill"></i>
+                                                    <%= order.destination %>
+                                            </td>
+                                            <td>
+                                                <%= order.vehicleType %><br>
+                                                    <%= order.distance %><br> Weight :
+                                                        <%= order.weight %> KG
+                                            </td>
+                                            <td>
+                                                <%= new Date(order.createdAt).toLocaleDateString('en-US', {
+                                                    year: 'numeric' , month: 'long' , day: 'numeric' }) %>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-danger"> <%= order.status %></span>
+                                            </td>
+                                            <td>
+                                                <a href="/order/<%= order.orderID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                                </a>
+
+                                                <button type="button" title="Assign Driver" class="w-32-px h-32-px bg-primary-light text-success-600 rounded-circle d-inline-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#assignOrderModal<%= order.orderID %>"> <iconify-icon icon="clarity:assign-user-solid"></iconify-icon> </button>
+                                            </td>
+                                        </tr>
+                                        <!-- Modal for Assigning Order -->
+                                        <div class="modal fade" id="assignOrderModal<%= order.orderID %>" tabindex="-1" aria-labelledby="assignOrderModalLabel<%= order.orderID %>" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="assignOrderModalLabel<%= order.orderID %>">Assign Order #
+                                                            <%= order.orderID %>
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <p><b>Order ID:</b>
+                                                                    <%= order.orderID %>
+                                                                </p>
+                                                                <p><b>Customer Name:</b>
+                                                                    <%= order.receiverFullName %>
+                                                                </p>
+                                                                <p><b>Customer Phone Number:</b>
+                                                                    <%= order.receiverPhoneNumber %>
+                                                                </p>
+                                                                <p><b>Pickup Location:</b> <i class="ri-navigation-fill"></i>
+                                                                    <%= order.pickup %>
+                                                                </p>
+                                                                <p><b>Delivery Location:</b> <i class="ri-map-pin-fill"></i>
+                                                                    <%= order.destination %>
+                                                                </p>
+                                                                <p><b>Weight:</b>
+                                                                    <%= order.weight %>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <h5>Assign Order to:</h5>
+                                                        <form action="/assign-driver" method="POST">
+                                                            <input type="hidden" name="orderID" value="<%= order.orderID %>">
+                                                            <div class="mb-3">
+                                                                <div class="form-group">
+                                                                    <label for="driver_id<%= order.orderID %>" class="form-label">Driver ID</label>
+                                                                    <input type="text" class="form-control" id="driver_id<%= order.orderID %>" name="driverID" placeholder="Enter Driver ID" required>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Assign Order</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+                                        <% }) %>
+                                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <% } %>
+        </div>
+    </div>
+
+</div>
+
+<!-- container-fluid -->

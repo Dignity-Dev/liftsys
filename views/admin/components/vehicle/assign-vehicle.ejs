@@ -1,0 +1,35 @@
+<%- include('../../partials/head') %>
+    <title>
+
+        Driver | Liftzor - Admin
+
+    </title>
+    </head>
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <%- include('../../partials/header') %>
+
+                <%- include('../../partials/sidebar') %>
+
+                    <!-- ============================================================== -->
+                    <!-- Start right Content here -->
+                    <!-- ============================================================== -->
+                    <div class="main-content">
+
+                        <div class="page-content">
+                            <%- include('../../layouts/vehicle/assign-vehicle.ejs') %>
+                                <!-- container-fluid -->
+                        </div>
+                        <!-- End Page-content -->
+
+                        <%- include('../../partials/footer') %>
+                    </div>
+                    <!-- end main content-->
+
+        </div>
+        <!-- END layout-wrapper -->
+
+        <%- include('../../partials/script') %>

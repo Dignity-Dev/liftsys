@@ -1,0 +1,101 @@
+<!-- container-fluid -->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                <h4 class="mb-sm-0">Manage fleets</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">fleets</a></li>
+                        <li class="breadcrumb-item active">Manage fleets</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Manage fleets</h4>
+                    <div class="flex-shrink-0">
+                        <button class="btn btn-primary" onclick="window.history.back()"><i
+                                class="ri-arrow-go-back-fill"></i> Back</button>
+                    </div>
+                </div>
+
+                <div class="card-body table-responsive">
+                    <% if (error) { %>
+                        <p class="text-danger mb-4">
+                            <%= error %>
+                        </p>
+                        <% } else { %>
+                            <table id="example" class="table table-bfleeted dt-responsive nowrap table-striped align-middle" style="width:100%">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>S/N</th>
+                                        <th>fleet ID</th>
+                                        <th>Fleet Name</th>
+                                        <th>Passport</th>
+                                        <th>Full Name</th>
+                                        <th>Email Address</th>
+                                        <th>phoneNumber</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (fleets && fleets.length > 0) { %>
+                                        <% fleets.forEach((fleet, index) => { %>
+                                            <tr>
+                                                <td>
+                                                    <%= index + 1 %>
+                                                </td>
+                                                <td>
+                                                    <%= fleet.fleetID %>
+                                                </td>
+                                                <td>
+                                                    <%= fleet.fleetName %>
+                                                </td>
+                                                <td>
+                                                    <%= fleet.passport%>
+                                                </td>
+
+                                                <td>
+                                                    <%= fleet.fullName %>
+                                                </td>
+                                                <td>
+                                                    <%= fleet.emailAddress %>
+                                                </td>
+                                                <td>
+                                                    <%= fleet.phoneNumber %>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown d-inline-block">
+                                                        <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill align-middle"></i>
+                                                    </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a href="/fleet/<%= fleet.fleetID %>" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View fleet</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <% }) %>
+                                                <% } %>
+                                </tbody>
+                            </table>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+
+</div>
+<!-- container-fluid -->

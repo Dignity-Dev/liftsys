@@ -1,0 +1,90 @@
+<!-- container-fluid -->
+
+<div class="container-fluid">
+
+    <div class="card basic-data-table">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Manage Shipment</h5>
+        </div>
+        <div class="card-body">
+            <% if (error) { %>
+                <p class="text-danger mb-4">
+                    <%= error %>
+                </p>
+                <!-- Use Bootstrap class for red text -->
+                <% }else{ %>
+                    <div class="table-responsive">
+                        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+                            <thead>
+                                <tr>
+                                    <th scope="col">S/N</th>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Receiver</th>
+                                    <th scope="col">Driver Status</th>
+                                    <th scope="col">Pickup/delivery</th>
+                                    <th scope="col">Vehicle/W/D</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Order Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (orders && orders.length> 0) { %>
+                                    <% orders.forEach((order, index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= order.orderID %>
+                                            </td>
+                                            <td>
+                                                <a href="/customer/<%= order.userID %>">
+                                                    <%= order.userID %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%= order.receiverFullName %><br>
+                                                    <%= order.receiverPhoneNumber %>
+                                            </td>
+                                            <td><span class="badge bg-danger">
+                                                <%= order.driverOrderStatus %>
+                                            </span></td>
+                                            <td><i class="ri-navigation-fill"></i>
+                                                <%= order.pickup %>
+                                                    <br>
+                                                    <i class="ri-map-pin-fill"></i>
+                                                    <%= order.destination %>
+                                            </td>
+                                            <td>
+                                                <%= order.vehicleType %><br>
+                                                    <%= order.distance %><br> Weight :
+                                                        <%= order.weight %> KG
+                                            </td>
+                                            <td>
+                                                <%= new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric'
+                                                , month: 'long' , day: 'numeric' }) %>
+                                            </td>
+                                            <td><span class="badge bg-success">
+                                                <%= order.status %>
+                                            </span></td>
+                                            <td>
+                                                <a href="/order/<%= order.orderID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <% } %>
+        </div>
+    </div>
+
+</div>
+
+<!-- container-fluid -->

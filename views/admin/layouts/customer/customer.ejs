@@ -1,0 +1,82 @@
+<!-- container-fluid -->
+
+<div class="container-fluid">
+
+    <div class="card basic-data-table">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Manage Shippers</h5>
+        </div>
+        <div class="card-body">
+            <% if (error) { %>
+                <p class="text-danger mb-4">
+                    <%= error %>
+                </p>
+                <!-- Use Bootstrap class for red text -->
+                <% }else{ %>
+                    <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+                        <thead>
+                            <tr>
+                                <th scope="col">SN</th>
+                                <th scope="col">Shippers ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone No</th>
+                                <th scope="col">Date Join</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% if (customers && customers.length > 0) { %>
+                                <% customers.forEach((customer, index) => { %>
+                                    <tr>
+                                        <td>
+                                            <%= index  + 1%>
+                                        </td>
+                                        <td>
+                                            <%= customer.userID %>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="<%= customer.profilePic ? customer.profilePic : '/images/user.png' %>" alt="image" class="flex-shrink-0 me-12" style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover;">
+                                                <h6 class="text-md mb-0 fw-medium flex-grow-1">
+                                                    <%= customer.fullName %>
+                                                </h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <%= customer.emailAddress %>
+                                        </td>
+                                        <td>
+                                            <%= customer.phoneNumber %>
+                                        </td>
+                                        <td>
+                                            <%= new Date(customer.registerDate).toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric'
+                                        }) %>
+                                        </td>
+                                        <td>
+                                            <a href="/customer/<%= customer.userID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                            </a>
+                                            <!-- <a href="javascript:void(0)" class="w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <iconify-icon icon="lucide:edit"></iconify-icon>
+                                            </a>
+                                            <a href="javascript:void(0)" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
+                                            </a> -->
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                        <% }  %>
+                        </tbody>
+                    </table>
+                    <% } %>
+        </div>
+    </div>
+
+</div>
+
+<!-- container-fluid -->

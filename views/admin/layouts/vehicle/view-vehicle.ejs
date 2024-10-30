@@ -1,0 +1,75 @@
+<!-- container-fluid -->
+<div class="container-fluid">
+    <!-- Start Page Title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                <h4 class="mb-sm-0">View Vehicle</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Vehicle</a></li>
+                        <li class="breadcrumb-item active">View Vehicle</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title -->
+    <% if (error) { %>
+        <div class="error-message">
+            <div class="alert alert-danger" role="alert">
+                <strong>Error:</strong>
+                <%= error %>
+            </div>
+        </div>
+        <% } else if (vehicle && vehicle.length > 0) { %>
+            <!-- Vehicle Section -->
+            <div class="row">
+                <!-- Single vehicle Card -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card bvehicle shadow-sm mb-4">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Vehicle ID: <strong> <%= vehicle[0].vehicleID %></strong></h5>
+                            <!-- <span class="badge bg-warning"> </span> -->
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Vehicle Name:</strong>
+                                <%= vehicle[0].vehicleName %>
+                            </p>
+                            <p><strong>Vehicle Color:</strong>
+                                <%= vehicle[0].vehicleColor %>
+                            </p>
+                            <p><strong>Vehicle Type:</strong>
+                                <%= vehicle[0].vehicleType %>
+                            </p>
+                            <p><strong>Vehicle Reg No</strong>
+                                <%= vehicle[0].vehicleRegNo %>
+                            </p>
+                            <p><strong>Vehicle Model:</strong>
+                                <%= vehicle[0].vehicleModel %>
+                            </p>
+                            <p><strong>Fleet User</strong>
+                                <%= vehicle[0].fleetID %>
+                            </p>
+                            <!-- <p><strong>Assigned Status:</strong> <span class="badge bg-danger"> </span></p> -->
+                        </div>
+                        <div class="card-footer text-center">
+                            <button onclick="window.history.back()" class="btn btn-primary btn-sm">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4">
+                    <div class="card bvehicle shadow-sm mb-4">
+                        <div class="card-body">
+                            <img src="" alt="" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+                <p class="text-muted">No vehicle information found.</p>
+                <% } %>
+
+</div>
+<!-- container-fluid -->

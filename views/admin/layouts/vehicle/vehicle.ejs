@@ -1,0 +1,136 @@
+<!-- container-fluid -->
+
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                <h4 class="mb-sm-0">Manage Vehicle</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Vehicle</a></li>
+                        <li class="breadcrumb-item active">Manage Vehicle</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Vehicle Management</h4>
+                    <div class="flex-shrink-0">
+                        <button class="btn btn-primary" onclick="window.history.back()"><i
+                                class="ri-arrow-go-back-fill"></i> Back</button>
+                    </div>
+                </div>
+                <div class="card-body  table-responsive">
+                    <% if (error) { %>
+                        <p class="text-danger mb-4">
+                            <%= error %>
+                        </p>
+                        <!-- Use Bootstrap class for red text -->
+                        <% }else{ %>
+                            <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Vehicle ID</th>
+                                        <th>Vehicle Photo</th>
+                                        <th>Vehicle Name</th>
+                                        <th>Vehicle Color</th>
+                                        <th>Vehicle Type</th>
+                                        <th>Reg No</th>
+                                        <th>fleetID</th>
+                                        <!-- <th>Reg State</th>
+                                        <th>Cargo Capacity</th>
+                                        <th>Status</th>
+                                        <th>Assigned Status</th> -->
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (vehicle && vehicle.length > 0) { %>
+                                        <% vehicle.forEach((vehicle, index) => { %>
+                                            <tr>
+                                                <td>
+                                                    <%= index  + 1%>
+                                                </td>
+                                                <td>
+                                                    <%= vehicle.vehicleID %>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <%= vehicle.vehicleName %>
+                                                </td>
+                                                <td>
+                                                    <%= vehicle.vehicleColor %>
+                                                </td>
+                                                <td>
+                                                    <%= vehicle.vehicleType %>
+                                                </td>
+                                                <td>
+                                                    <%= vehicle.vehicleRegNo %>
+                                                </td>
+                                                <td>
+                                                    <%= vehicle.fleetID %>
+                                                </td>
+                                                <!-- <td>700KG</td>
+                                                <td><span class="badge bg-info">Active</span></td>
+                                                <td><span class="badge bg-danger">Not Assigned</span></td> -->
+                                                <td>
+                                                    <div class="dropdown d-inline-block">
+                                                        <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="ri-more-fill align-middle"></i>
+                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <!-- <li>
+                                                                <button type="button" class="dropdown-item btn btn-primary" data-bs-toggle="modal" data-bs-target="#zoomInModal"><i
+                                                        class="ri-ship-line align-bottom me-2 text-muted"></i>
+                                                    Assign Vehicle
+                                                </button> 
+                                                            </li> -->
+                                                            <li><a href="/vehicle/<%= vehicle.vehicleID %>" class="dropdown-item"><i
+                                                        class="ri-eye-fill align-bottom me-2 text-muted"></i>
+                                                    View</a></li>
+                                                            <!-- <li><a href="/update-vehicle/:id" class="dropdown-item edit-item-btn"><i
+                                                        class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                    Edit</a></li> -->
+                                                            <!-- <li>
+                                                                <button id="sa-warning" class="dropdown-item remove-item-btn">
+                                                    <i
+                                                        class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                    Delete
+                                                </button>
+                                                            </li> -->
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <% }) %>
+                                                <% } %>
+
+                                </tbody>
+                            </table>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+
+
+
+</div>
+
+<!-- container-fluid -->
