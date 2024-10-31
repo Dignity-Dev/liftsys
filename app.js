@@ -31,6 +31,7 @@ const customerRoutes = require('./admin/routes/customer/customer');
 const orderRoutes = require('./admin/routes/order/order');
 const fleetoutes = require('./admin/routes/fleet/fleet');
 const vehicleRoutes = require('./admin/routes/vehicle/vehicle');
+const kycRoutes = require('./admin/routes/kyc/kyc');
 
 
 // Use Routes
@@ -41,6 +42,7 @@ app.use('/', customerRoutes);
 app.use('/', orderRoutes);
 app.use('/', fleetoutes);
 app.use('/', vehicleRoutes);
+app.use('/', kycRoutes);
 // end of admin route
 
 // Catch-all route for handling 404 errors

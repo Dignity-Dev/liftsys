@@ -4,7 +4,7 @@
 
     <div class="card basic-data-table">
         <div class="card-header">
-            <h5 class="card-title mb-0">Manage Drivers</h5>
+            <h5 class="card-title mb-0">Manage KYC</h5>
         </div>
         <div class="card-body">
             <% if (error) { %>
@@ -23,11 +23,6 @@
                                     <th scope="col">Phone No</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">KYC Status</th>
-                                    <th scope="col">Vehicle Name</th>
-                                    <th scope="col">Vehicle Reg No</th>
-                                    <th scope="col">Vehicle Model</th>
-                                    <th scope="col">Vehicle Type</th>
-                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -56,33 +51,7 @@
                                                 </a>
                                             </td>
                                             <td><span class="badge bg-info-subtle text-success"> Active</span></td>
-                                            <td>
-                                                <%= driver.vehicleName %>
-                                            </td>
-                                            <td>
-                                                <%= driver.vehicleRegNo %>
-                                            </td>
-                                            <td>
-                                                <%= driver.vehicleModel %>
-                                            </td>
-                                            <td>
-                                                <%= driver.vehicleType %>
-                                            </td>
-                                            <td>
-                                                <% if (driver.onlineStatus!='offline' ) { %>
-                                                    <span class="badge bg-danger">Offline</span>
-                                                    <% } else if(driver.onlineStatus='online' ){ %>
-                                                        <span class="badge bg-success">
-                                                            <%= driver.onlineStatus %>
-                                                        </span>
-                                                        <% } else {%>
-                                                            <span class="badge bg-warning">Idle</span>
-                                                            <% } %>
 
-
-
-
-                                            </td>
                                             <td>
                                                 <a href="/driver/<%= driver.userID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                                     <iconify-icon icon="iconamoon:eye-light"></iconify-icon>

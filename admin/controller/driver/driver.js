@@ -1,10 +1,6 @@
 const axios = require('axios');
 
-
-
-
 // Render form to create a new driver
-
 exports.getAllDrivers = async(req, res) => {
     try {
         const token = req.cookies.token;
