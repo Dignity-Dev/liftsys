@@ -1,35 +1,33 @@
-<%- include('../../partials/head') %>
-    <title>
+<%- include('../../partials/header') %>
 
-        Driver | Liftzor - Admin
-
-    </title>
+    <title>All Vehicle | Liftzor Admin</title>
     </head>
 
     <body>
+        <%- include('../../partials/sidebar') %>
+            <main class="dashboard-main">
+                <%- include('../../partials/head') %>
+                    <div class="dashboard-main-body">
 
-        <!-- Begin page -->
-        <div id="layout-wrapper">
-            <%- include('../../partials/header') %>
-
-                <%- include('../../partials/sidebar') %>
-
-                    <!-- ============================================================== -->
-                    <!-- Start right Content here -->
-                    <!-- ============================================================== -->
-                    <div class="main-content">
-
-                        <div class="page-content">
-                            <%- include('../../layouts/vehicle/vehicle') %>
-                                <!-- container-fluid -->
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+                            <h6 class="fw-semibold mb-0">Liftzor Vehicle</h6>
+                            <ul class="d-flex align-items-center gap-2">
+                                <li class="fw-medium">
+                                    <a href="/dashboard" class="d-flex align-items-center gap-1 hover-text-primary">
+                                        <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li>-</li>
+                                <li class="fw-medium">Liftzor Vehicle</li>
+                            </ul>
                         </div>
-                        <!-- End Page-content -->
-
-                        <%- include('../../partials/footer') %>
+                        <%- include('../../layouts/vehicle/vehicle') %>
                     </div>
-                    <!-- end main content-->
+                    <%- include('../../partials/footer') %>
+            </main>
+            <%- include('../../partials/script') %>
 
-        </div>
-        <!-- END layout-wrapper -->
+    </body>
 
-        <%- include('../../partials/script') %>
+    </html>
