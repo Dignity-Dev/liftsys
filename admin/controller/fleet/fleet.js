@@ -2,9 +2,7 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 
 
-// Handle Sign-up
-// Fleet controller (signUpFleet)
-// Fleet controller (signUpFleet)
+
 exports.signUpFleet = async(req, res) => {
     // Check if the logged-in user is an admin
     if (req.user.userType !== 'admin') {
@@ -26,7 +24,7 @@ exports.signUpFleet = async(req, res) => {
         });
 
         // After successful fleet registration, redirect to the dashboard
-        return res.redirect('/manage-fleet');
+        return res.redirect('/fleet');
     } catch (error) {
         // Handle errors during the fleet registration
         const errorMessage = error.response && error.response.data && error.response.data.message ?

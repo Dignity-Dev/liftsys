@@ -1,3 +1,5 @@
+<!-- Load Google Maps JavaScript API asynchronously -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAw4piC98v-jXlof_H979KOr2GRDAaaDDY&callback=initMap" async defer loading="async"></script>
 <!-- container-fluid -->
 <div class="container-fluid">
 
@@ -49,6 +51,15 @@
                     </div>
                 </div>
 
+                <div class="col-md-8 col-xl-8">
+                    <div class="card border shadow-sm mb-4">
+                        <div class="card-body">
+                            <div id="map" style="height: 400px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6 col-xl-4">
                     <div class="card border shadow-sm mb-4">
                         <div class="card-body">
@@ -57,9 +68,142 @@
                     </div>
                 </div>
             </div>
+
             <% } else { %>
                 <p class="text-muted">No Order information found.</p>
                 <% } %>
 
 </div>
-<!-- container-fluid -->
+
+
+
+<script>
+    function initMap() {
+        const pickUpLocation = {
+            lat: parseFloat("<%= order[0].pickUpLatitude %>"),
+            lng: parseFloat("<%= order[0].pickUpLongitude %>"),
+        };
+        const dropOffLocation = {
+            lat: parseFloat("<%= order[0].dropOffLatitude %>"),
+            lng: parseFloat("<%= order[0].dropOffLongitude %>"),
+        };
+
+        // Initialize the map, centered on the midpoint (for default view)
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: {
+                lat: (pickUpLocation.lat + dropOffLocation.lat) / 2,
+                lng: (pickUpLocation.lng + dropOffLocation.lng) / 2,
+            },
+            zoom: 6,
+        });
+
+        // Add markers for pickup and drop-off locations
+        new google.maps.Marker({
+            position: pickUpLocation,
+            map: map,
+            label: "P",
+            title: "Pickup Location",
+        });
+
+        new google.maps.Marker({
+            position: dropOffLocation,
+            map: map,
+            label: "D",
+            title: "Drop-off Location",
+        });
+
+        // Fit map bounds to show both markers
+        const bounds = new google.maps.LatLngBounds();
+        bounds.extend(pickUpLocation);
+        bounds.extend(dropOffLocation);
+        map.fitBounds(bounds);
+
+        // Create a Polyline manually to draw the route
+        const routeLine = new google.maps.Polyline({
+            path: [pickUpLocation, dropOffLocation],
+            geodesic: true,
+            strokeColor: "#FF0000", // Red line
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+        });
+        routeLine.setMap(map);
+
+        // Optionally, use Directions API to calculate the route
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer({
+            map: map,
+            suppressMarkers: true, // Keep only custom markers "P" and "D"
+        });
+
+        // Set up directions request to calculate route between pickUp and dropOff
+        directionsService.route({
+                origin: pickUpLocation,
+                destination: dropOffLocation,
+                travelMode: google.maps.TravelMode.DRIVING,
+            },
+            (result, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    console.error("Error fetching directions:", status);
+                }
+            }
+        );
+    }
+
+    window.onload = initMap;
+</script>
+
+
+<!--
+<script>
+    function initMap() {
+        const pickUpLocation = {
+            lat: parseFloat("<%= order[0].pickUpLatitude %>"),
+            lng: parseFloat("<%= order[0].pickUpLongitude %>")
+        };
+        const dropOffLocation = {
+            lat: parseFloat("<%= order[0].dropOffLatitude %>"),
+            lng: parseFloat("<%= order[0].dropOffLongitude %>")
+        };
+
+        const centerLocation = {
+            lat: (pickUpLocation.lat + dropOffLocation.lat) / 2,
+            lng: (pickUpLocation.lng + dropOffLocation.lng) / 2,
+        };
+
+        // Initialize the map
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: centerLocation,
+            zoom: 6,
+        });
+
+        // Add markers for pickup and drop-off locations using google.maps.Marker
+        new google.maps.Marker({
+            position: pickUpLocation,
+            map: map,
+            label: "P", // Label for pickup location
+            title: "Pickup Location",
+        });
+
+        new google.maps.Marker({
+            position: dropOffLocation,
+            map: map,
+            label: "D", // Label for drop-off location
+            title: "Drop-off Location",
+        });
+
+        // Draw a line between pickup and drop-off locations
+        const routeLine = new google.maps.Polyline({
+            path: [pickUpLocation, dropOffLocation],
+            geodesic: true,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+        });
+        routeLine.setMap(map);
+    }
+
+    // Initialize map once the page is loaded
+    window.onload = initMap;
+</script> -->
