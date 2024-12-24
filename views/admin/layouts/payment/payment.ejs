@@ -1,0 +1,73 @@
+<!-- container-fluid -->
+
+<div class="container-fluid">
+
+    <div class="card basic-data-table">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Manage Payment</h5>
+        </div>
+        <div class="card-body">
+            <% if (error) { %>
+                <p class="text-danger mb-4">
+                    <%= error %>
+                </p>
+                <!-- Use Bootstrap class for red text -->
+                <% }else{ %>
+                    <div class="table-responsive">
+                        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Driver ID</th>
+                                    <th scope="col">Fullname</th>
+                                    <th scope="col">Phone No</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">KYC Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% if (drivers && drivers.length> 0) { %>
+                                    <% drivers.forEach((driver,index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= driver.userID %>
+                                            </td>
+                                            <td>
+                                                <%= driver.fullName %>
+                                            </td>
+                                            <td>
+                                                <a href="tel:+234817655004">
+                                                    <%= driver.phoneNumber %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="mailto:Adewaleola23@gmail.com">
+                                                    <%= driver.emailAddress %>
+                                                </a>
+                                            </td>
+                                            <td><span class="badge bg-info-subtle text-success"> Active</span></td>
+
+                                            <td>
+                                                <a href="/driver/<%= driver.userID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+
+</div>
+
+<!-- container-fluid -->
