@@ -10,10 +10,10 @@ const authorize = require('../../../utils/middleware/adminMiddleware');
 router.use(authorize);
 
 // Render the signup page
-router.get('/fleet/sign-up', fleetController.renderFleetSignUp);
+router.get('/fleet/new-fleet', fleetController.renderFleetSignUp);
 
 // Handle the login
-router.post('/fleet/sign-up', fleetController.signUpFleet);
+router.post('/fleet/new-fleet', fleetController.signUpFleet);
 
 // to list all fleet
 router.get('/manage-fleet', fleetController.getAllFleets);

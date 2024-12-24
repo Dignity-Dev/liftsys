@@ -13,7 +13,12 @@ exports.getAllOrders = async(req, res) => {
         if (!orders || orders.length === 0) {
             return res.render('admin/components/order/order', { orders: [], error: 'No orders available.' });
         }
-        res.render('admin/components/order/order', { orders, error: null });
+        // Sort the orders by 'createdAt' (either ascending or descending)
+        const sortedOrders = orders.sort((a, b) => {
+            // Assuming createdAt is in ISO format. Adjust if it's a different format.
+            return new Date(b.createdAt) - new Date(a.createdAt); // descending order
+        });
+        res.render('admin/components/order/order', { orders: sortedOrders, error: null });
     } catch (error) {
         if (error.response && error.response.status === 401) {
             return res.redirect('/sign-in');
@@ -104,9 +109,13 @@ exports.getPendingOrders = async(req, res) => {
         if (!pendingOrders || pendingOrders.length === 0) {
             return res.render('admin/components/order/new-order', { pendingOrders: [], error: 'No pending orders available.' });
         }
-
+        // Sort the orders by 'createdAt' (either ascending or descending)
+        const PsortedOrders = pendingOrders.sort((a, b) => {
+            // Assuming createdAt is in ISO format. Adjust if it's a different format.
+            return new Date(b.createdAt) - new Date(a.createdAt); // descending order
+        });
         // Render the pending orders page with the retrieved data
-        res.render('admin/components/order/new-order', { pendingOrders, error: null });
+        res.render('admin/components/order/new-order', { pendingOrders: PsortedOrders, error: null });
     } catch (error) {
         if (error.response && error.response.status === 401) {
             return res.redirect('/sign-in'); // Redirect to sign-in on unauthorized access

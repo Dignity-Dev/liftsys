@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 
 exports.signUpFleet = async(req, res) => {
+    const token = req.cookies.token; // Extract token from cookies
+    console.log(token);
     // Check if the logged-in user is an admin
     if (req.user.userType !== 'admin') {
         res.redirect("/sign-in");
@@ -14,16 +16,15 @@ exports.signUpFleet = async(req, res) => {
     }
 
     try {
-        // Extract token from request headers
-        const token = req.cookies.token;
+        const token = req.cookies.token; // Extract token from cookies
         // Make a request to register the fleet
         const response = await axios.post(`${process.env.APP_URI}/fleet/register`, req.body, {
             headers: {
-                Authorization: `Bearer ${token}`,
-            },
+                Authorization: `Bearer ${token}` // Pass token in the headers
+            }
         });
-
-        // After successful fleet registration, redirect to the dashboard
+        const fleet = response.data.data;
+        console.log(fleet) // Access the pending fleet data
         return res.redirect('/fleet');
     } catch (error) {
         // Handle errors during the fleet registration

@@ -9,12 +9,23 @@ exports.getAllDrivers = async(req, res) => {
                 Authorization: `Bearer ${token}`
             }
         });
+        // const drivers = response.data.data;
+        // if (!drivers || drivers.length === 0) {
+        //     return res.render('admin/components/driver/driver', { drivers: [], error: 'No drivers available.' });
+        // }
         const drivers = response.data.data;
+
         if (!drivers || drivers.length === 0) {
             return res.render('admin/components/driver/driver', { drivers: [], error: 'No drivers available.' });
         }
 
-        res.render('admin/components/driver/driver', { drivers, error: null });
+        // Sort the drivers by 'registerDate' (either ascending or descending)
+        const sortedDrivers = drivers.sort((a, b) => {
+            // Assuming registerDate is in ISO format. Adjust if it's a different format.
+            return new Date(b.registerDate) - new Date(a.registerDate); // descending order
+        });
+
+        res.render('admin/components/driver/driver', { drivers: sortedDrivers, error: null });
     } catch (error) {
         if (error.response && error.response.status === 401) {
             return res.redirect('/sign-in');
