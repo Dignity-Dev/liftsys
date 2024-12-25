@@ -3,7 +3,7 @@ const axios = require('axios');
 // Render dashboard Page
 exports.renderDashboard = async(req, res) => {
     const token = req.cookies.token;
-
+    // console.log(token);
     try {
         // Fetch dashboard data
         const { data: { data: dash } } = await axios.get(`${process.env.APP_URI}/admin/dashboard`, {
