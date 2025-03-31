@@ -1,8 +1,32 @@
 const axios = require('axios');
 
 // Fetch all vehicle from API
-
 exports.getAllVehicle = async(req, res) => {
+    try {
+        const token = req.cookies.token;
+        const response = await axios.get(`${process.env.APP_URI}/admin/getallvehicles`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const vehicle = response.data.data;
+        if (!vehicle || vehicle.length === 0) {
+            return res.render('admin/components/vehicle/vehicle', { vehicle: [], error: 'No vehicle available.' });
+        }
+
+        res.render('admin/components/vehicle/vehicle', { vehicle, error: null });
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            return res.redirect('/sign-in');
+        }
+
+        res.render('admin/components/vehicle/vehicle', { vehicle: [], error: 'Error fetching vehicle.' });
+    }
+};
+
+// Fetch Awaiting Vehicle for approval
+
+exports.getAwaitingVehicle = async(req, res) => {
     try {
         const token = req.cookies.token;
         const response = await axios.get(`${process.env.APP_URI}/admin/getallvehicles`, {

@@ -1,0 +1,33 @@
+<%- include('../../partials/header') %>
+
+    <title>Awaiting Vehicle for Approval | Liftzor Admin</title>
+    </head>
+
+    <body>
+        <%- include('../../partials/sidebar') %>
+            <main class="dashboard-main">
+                <%- include('../../partials/head') %>
+                    <div class="dashboard-main-body">
+
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
+                            <h6 class="fw-semibold mb-0">Awaiting Vehicle</h6>
+                            <ul class="d-flex align-items-center gap-2">
+                                <li class="fw-medium">
+                                    <a href="/dashboard" class="d-flex align-items-center gap-1 hover-text-primary">
+                                        <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li>-</li>
+                                <li class="fw-medium">Awaiting Vehicle</li>
+                            </ul>
+                        </div>
+                        <%- include('../../layouts/vehicle/awatingVehicle') %>
+                    </div>
+                    <%- include('../../partials/footer') %>
+            </main>
+            <%- include('../../partials/script') %>
+
+    </body>
+
+    </html>

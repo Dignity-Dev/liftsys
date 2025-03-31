@@ -1,0 +1,82 @@
+<!-- container-fluid -->
+
+<div class="container-fluid">
+
+    <div class="card basic-data-table">
+        <div class="card-header">
+            <h5 class="card-title mb-0">All Awaiting Vehicle</h5>
+        </div>
+        <div class="card-body">
+            <% if (error) { %>
+                <p class="text-danger mb-4">
+                    <%= error %>
+                </p>
+                <!-- Use Bootstrap class for red text -->
+                <% }else{ %>
+                    <div class="table-responsive">
+                        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Vehicle ID</th>
+                                    <th scope="col">fleetID</th>
+                                    <th scope="col">Vehicle Photo</th>
+                                    <th scope="col">Vehicle Name</th>
+                                    <th scope="col">Vehicle Color/Type</th>
+                                    <th scope="col">Reg No</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (vehicle && vehicle.length > 0) { %>
+                                    <% vehicle.forEach((vehicle, index) => { %>
+                                        <tr>
+                                            <td>
+                                                <%= index  + 1%>
+                                            </td>
+                                            <td>
+                                                <%= vehicle.vehicleID %>
+                                            </td>
+                                            <td>
+                                                <%= vehicle.fleetID %>
+                                            </td>
+                                            <td>
+                                                <img src="<%= vehicle.vehiclePhoto ? vehicle.vehiclePhoto : '/images/user.png' %>" alt="image" class="flex-shrink-0 me-12" style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover;">
+                                            </td>
+                                            <td>
+                                                <%= vehicle.vehicleName %>
+                                            </td>
+                                            <td>
+                                                <%= vehicle.vehicleColor %>/
+                                                    <%= vehicle.vehicleType %>
+                                            </td>
+                                            <td>
+                                                <%= vehicle.vehicleRegNo %>
+                                            </td>
+
+                                            <td>
+                                                <a href="/vehicle/<%= vehicle.vehicleID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                                </a>
+                                                <a href="/approveVehicle/<%= vehicle.vehicleID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="iconamoon:"></iconify-icon>
+                                                </a>
+                                                <a href="/rejectVehicle/<%= vehicle.vehicleID %>" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                    <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                        <% }) %>
+                                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <% } %>
+        </div>
+    </div>
+
+</div>
+
+<!-- container-fluid -->

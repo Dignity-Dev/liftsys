@@ -9,6 +9,7 @@ router.use(authorize);
 
 // Routes
 router.get('/manage-vehicle', vehicleController.getAllVehicle);
+router.get('/awaiting-vehicle', vehicleController.getAwaitingVehicle);
 router.get('/vehicle/:id', vehicleController.getvehicleById);
 
 module.exports = router;
