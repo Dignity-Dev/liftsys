@@ -12,4 +12,14 @@ router.get('/manage-vehicle', vehicleController.getAllVehicle);
 router.get('/awaiting-vehicle', vehicleController.getAwaitingVehicle);
 router.get('/vehicle/:id', vehicleController.getvehicleById);
 
+
+// Approve Vehicle
+router.put("/approve/:vehicleID", vehicleController.approveVehicle);
+
+// Reject Vehicle
+router.put("/reject/:vehicleID", vehicleController.rejectVehicle);
+
+// Deactivate Vehicle
+router.put("/deactivate/:vehicleID", vehicleController.deactivateVehicle);
+
 module.exports = router;

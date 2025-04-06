@@ -12,7 +12,7 @@
             <!-- Vehicle Section -->
             <div class="row">
                 <!-- Single vehicle Card -->
-                <div class="col-md-6 col-xl-4">
+                <div class="col-md-4 col-xl-4">
                     <div class="card bvehicle shadow-sm mb-4">
                         <div class="card-header bg-light d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">Vehicle ID: <strong> <%= vehicle[0].vehicleID %></strong></h5>
@@ -43,9 +43,32 @@
                             <button onclick="window.history.back()" class="btn btn-primary btn-sm">Back</button>
                         </div>
                     </div>
+                    <div class="mt-5 ">
+                        <!-- check if the status of the vehicle is notactive -->
+                        <% if (vehicle[0].status === 'notactive') { %>
+                            <!-- two button to approve or reject the vehicle -->
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button onclick="approveVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-primary">
+                                    <i class="fa fa-check"></i> Approve this vehicle
+                                </button>
+                                <span class="mx-10"></span>
+                                <button onclick="rejectVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-danger">
+                                    <i class="fa fa-ban"></i> Reject this vehicle
+                                </button>
+                            </div>
+                            <% } %>
+                                <!-- check if the status of the vehicle is active -->
+                                <% if (vehicle[0].status === 'active') { %>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <button onclick="deactivateVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-danger btn-sm">
+                                            Deactivate
+                                        </button>
+                                    </div>
+                                    <% } %>
+                    </div>
                 </div>
 
-                <div class="col-md-6 col-xl-4">
+                <div class="col-md-8 col-xl-8">
                     <div class="card bvehicle shadow-sm mb-4">
                         <div class="card-body">
                             <img src="<%= vehicle[0].vehiclePhoto %>" alt="vehicle image" width="100%">
@@ -59,3 +82,102 @@
 
 </div>
 <!-- container-fluid -->
+
+
+<script>
+    function approveVehicle(event, vehicleID) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You are about to approve this vehicle!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, approve it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/vehicle/approve/${vehicleID}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Approved!", "The vehicle has been approved.", "success")
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire("Error!", data.message, "error");
+                        }
+                    })
+                    .catch(error => Swal.fire("Error!", "Something went wrong.", "error"));
+            }
+        });
+    }
+
+    function rejectVehicle(event, vehicleID) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You are about to reject this vehicle!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, reject it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/vehicle/reject/${vehicleID}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Rejected!", "The vehicle has been rejected.", "success")
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire("Error!", data.message, "error");
+                        }
+                    })
+                    .catch(error => Swal.fire("Error!", "Something went wrong.", "error"));
+            }
+        });
+    }
+
+    function deactivateVehicle(event, vehicleID) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You are about to deactivate this vehicle!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, deactivate it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/vehicle/deactivate/${vehicleID}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Deactivated!", "The vehicle has been deactivated.", "success")
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire("Error!", data.message, "error");
+                        }
+                    })
+                    .catch(error => Swal.fire("Error!", "Something went wrong.", "error"));
+            }
+        });
+    }
+</script>

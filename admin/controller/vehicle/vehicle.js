@@ -34,12 +34,9 @@ exports.getAwaitingVehicle = async(req, res) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        const vehicle = response.data.data;
-        if (!vehicle || vehicle.length === 0) {
-            return res.render('admin/components/vehicle/vehicle', { vehicle: [], error: 'No vehicle available.' });
-        }
-
-        res.render('admin/components/vehicle/vehicle', { vehicle, error: null });
+        const vehicle = response.data.data || [];;
+        const awaitingVehicles = vehicle.filter(v => v.status === 'notactive');
+        res.render('admin/components/vehicle/awaiting-vehicle', { vehicle: awaitingVehicles, error: awaitingVehicles.length === 0 ? 'No awaiting vehicles available.' : null });
     } catch (error) {
         if (error.response && error.response.status === 401) {
             return res.redirect('/sign-in');
@@ -51,15 +48,11 @@ exports.getAwaitingVehicle = async(req, res) => {
 
 
 exports.getvehicleById = async(req, res) => {
-    let vehicleId; // Declare vehicleId outside the try block so it's accessible everywhere
+    let vehicleId;
 
     try {
-        vehicleId = req.params.id; // Get vehicle ID from the route parameters
-        const token = req.cookies.token; // Extract token from cookies
-
-        // console.log('Fetching vehicle with ID:', vehicleId); // Debug log for vehicle ID
-
-        // Fetch vehicle data from the external API using query parameters
+        vehicleId = req.params.id;
+        const token = req.cookies.token;
         const response = await axios.get(`${process.env.APP_URI}/admin/get-one-vehicle/${vehicleId}`, {
             headers: {
                 Authorization: `Bearer ${token}`, // Pass token in the headers
@@ -72,30 +65,66 @@ exports.getvehicleById = async(req, res) => {
         const vehicle = response.data.data; // Access the vehicle data
 
         if (!vehicle || vehicle.length === 0) {
-            console.log(`vehicle with ID: ${vehicleId} not found.`);
             return res.status(404).render('admin/components/vehicle/view-vehicle', { vehicle: null, error: 'vehicle not found.' });
         }
 
-        // Render the vehicle details page with the retrieved data
-        console.log('vehicle fetched successfully:', vehicle);
         res.render('admin/components/vehicle/view-vehicle', { vehicle, error: null });
 
     } catch (error) {
         console.error('Error fetching vehicle:', error.response ? error.response.data : error.message);
 
         if (error.response && error.response.status === 404) {
-            console.log(`vehicle with ID: ${vehicleId} not found.`); // vehicle ID will now be accessible
             return res.status(404).render('admin/components/vehicle/view-vehicle', { vehicle: null, error: 'vehicle not found.' });
         }
 
         // Handle token-related errors, such as expiration or invalid token
         if (error.response && error.response.status === 401) {
-            console.log('Invalid or expired token, redirecting to sign-in page.');
             return res.redirect('/sign-in');
         }
 
         // Handle other API errors
         res.status(500).render('admin/components/vehicle/view-vehicle', { vehicle: null, error: 'Error fetching vehicle details.' });
+    }
+};
+
+
+
+exports.approveVehicle = async(req, res) => {
+    try {
+        const { vehicleID } = req.params;
+        const token = req.cookies.token;
+
+        const response = await axios.put(`${process.env.APP_URI}/admin/vehicle/approve/${vehicleID}`, { status: "active" }, { headers: { Authorization: `Bearer ${token}` } });
+
+        res.json({ success: true, message: "Vehicle approved successfully", data: response.data });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error approving vehicle", error: error.message });
+    }
+};
+
+exports.rejectVehicle = async(req, res) => {
+    try {
+        const { vehicleID } = req.params;
+        const token = req.cookies.token;
+
+        const response = await axios.put(`${process.env.APP_URI}/admin/vehicle/reject/${vehicleID}`, { status: "rejected" }, { headers: { Authorization: `Bearer ${token}` } });
+
+        res.json({ success: true, message: "Vehicle rejected successfully", data: response.data });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error rejecting vehicle", error: error.message });
+    }
+};
+
+exports.deactivateVehicle = async(req, res) => {
+    try {
+        const { vehicleID } = req.params;
+        const token = req.cookies.token;
+
+        const response = await axios.put(`${process.env.APP_URI}/admin/deactivateVehicle/${vehicleID}`, { status: "notactive" }, { headers: { Authorization: `Bearer ${token}` } });
+
+        res.json({ success: true, message: "Vehicle deactivated successfully", data: response.data });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error deactivating vehicle", error: error.message });
     }
 };
 
