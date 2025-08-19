@@ -229,12 +229,12 @@ exports.deactivateVehicle = async(req, res) => {
 
 
 
-// 
+//
 
 
 
 exports.deleteVehicle = async(req, res) => {
-    let vehicleId 
+    let vehicleId
     try {
         vehicleId = req.params.id
         const token = req.cookies.token
@@ -243,7 +243,8 @@ exports.deleteVehicle = async(req, res) => {
                     Authorization: `Bearer ${token}`
             }
         })
-        res.json({msg: response.data})
+        res.json({msg: response.data});
+        res.redirect('/sign-in');
     } catch (error) {
         console.log(error)
     }
