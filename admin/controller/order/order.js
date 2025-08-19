@@ -65,7 +65,7 @@ exports.assignOrderToDriver = async(req, res) => {
         if (!driverID || !orderID) {
             return res.status(400).json({ error: 'Both Driver ID and Order ID are required.' });
         }
-
+ 
         const token = req.cookies.token;
         if (!token) return res.redirect('/sign-in');
 

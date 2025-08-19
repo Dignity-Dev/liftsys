@@ -26,8 +26,12 @@
                                 <%= fleet[0].fullName %>
                             </h3>
                             <p class="text-black text-opacity-75">fleet</p>
+                            <% if (fleet[0].verifiedByAdmin) { %>
+                                        <span class="badge bg-success">Verified</span>
+                                    <% } else { %>
+                                        <span class="badge bg-danger">Unverify</span>
+                                    <% } %>
                             <div class="hstack text-black-50 gap-1">
-
                             </div>
                         </div>
                     </div>
@@ -38,7 +42,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div>
-                        <div class="d-flex profile-wrapper">
+                        <div class="d-flex align-center profile-wrapper">
                             <!-- Nav tabs -->
                             <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
                                 <li class="nav-item">
@@ -50,7 +54,6 @@
                                         <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Overview</span>
                                     </a>
                                 </li>
-
                             </ul>
                             <!-- <div class="flex-shrink-0">
                                 <a href="" class="btn btn-success"><i
@@ -86,7 +89,7 @@
                                                                     <%= fleet[0].emailAddress %>
                                                                 </td>
                                                             </tr>
-
+                                                        
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -102,9 +105,44 @@
                                             <div class="card-body">
                                                 <h5 class="card-title mb-3">About</h5>
                                                 <p>Hi I'm Sola Olatunde, It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what
-                                                    Occidental is European languages are members of the same family.</p>
+                                                    Occidental is European languages are members of the same family.</p> <hr>
 
+                                                <h5 class="card-title mt-3 pb-4">Fleet Verification</h5>
+                                              
+                                                    <% if (fleet[0].verifiedByAdmin) { %>
+                                                       <span class="badge bg-success">Verified</span>
+                                                        </a>
+                                                    <% } else { %>
+                                                        <a href="/verify-fleet/<%= fleet[0].fleetID %>" class="btn btn-outline-primary"
+                                                        onclick="return confirm('Are you sure you want to verify this fleet?');">
+                                                        Verify Fleet
+                                                        </a>
+                                                    <% } %>
 
+                                                    <br> <br>
+                                                    <h5 class="card-title mt-3 pb-4">Manage Fleet</h5>
+
+                                                    <div class="d-flex align-center g-4 m-2">
+                                                        <div class="a px-4">
+                                                            <% if (fleet[0].suspendStatus === "suspended") { %>
+                                                            <a href="/unsuspend-fleet/<%= fleet[0].fleetID %>" class="btn btn-outline-primary"
+                                                                onclick="return confirm('Are you sure you want to suspend this fleet?');">
+                                                                unsuspend Fleet
+                                                            </a>
+                                                        <% } else { %>
+                                                            <a href="/suspend-fleet/<%= fleet[0].fleetID %>" class="btn btn-outline-danger"
+                                                            onclick="return confirm('Are you sure you want to suspend this fleet?');">
+                                                            Suspend Fleet
+                                                            </a>
+                                                        <% } %>
+                                                        </div>
+                                                        <div class="a px-5">
+                                                            <a href="/delete-fleet/<%= fleet[0].fleetID %>" class="btn btn-danger"
+                                                                onclick="return confirm('Once you delete this action cannot be reverse');">
+                                                                Delete Fleet
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 <!--end row-->
                                             </div>
                                             <!--end card-body-->

@@ -22,6 +22,20 @@ router.get('/manage-fleet', fleetController.getAllFleets);
 router.get('/fleet/:id', fleetController.getfleetById);
 
 
+router.get('/new-fleet/', fleetController.getNewFleet);
+
+router.get('/approved-fleet/', fleetController.getVerifyFleet);
+
+router.get('/verify-fleet/:id', fleetController.verifyFleet);
+
+router.get('/suspend-fleet/:id', fleetController.suspendFleet);
+
+router.get('/unsuspend-fleet/:id', fleetController.unsuspendfleet);
+
+router.get('/delete-fleet/:id', fleetController.deleteFleet);
+
+
+
 
 
 module.exports = router;

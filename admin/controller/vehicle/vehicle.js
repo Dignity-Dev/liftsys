@@ -34,6 +34,7 @@ exports.getAwaitingVehicle = async(req, res) => {
                 Authorization: `Bearer ${token}`
             }
         });
+
         const vehicle = response.data.data || [];;
         const awaitingVehicles = vehicle.filter(v => v.status === 'notactive');
         res.render('admin/components/vehicle/awaiting-vehicle', { vehicle: awaitingVehicles, error: awaitingVehicles.length === 0 ? 'No awaiting vehicles available.' : null });
@@ -90,26 +91,28 @@ exports.getvehicleById = async(req, res) => {
 
 
 exports.approveVehicle = async(req, res) => {
+    let vehicleID
     try {
-        const { vehicleID } = req.params;
+        vehicleID = req.params.id;
         const token = req.cookies.token;
 
         const response = await axios.put(`${process.env.APP_URI}/admin/vehicle/approve/${vehicleID}`, { status: "active" }, { headers: { Authorization: `Bearer ${token}` } });
 
-        res.json({ success: true, message: "Vehicle approved successfully", data: response.data });
+        res.redirect(`/vehicle/${vehicleID}`);
     } catch (error) {
         res.status(500).json({ success: false, message: "Error approving vehicle", error: error.message });
     }
 };
 
 exports.rejectVehicle = async(req, res) => {
+    let vehicleID
     try {
-        const { vehicleID } = req.params;
+         vehicleID  = req.params.id;
         const token = req.cookies.token;
 
         const response = await axios.put(`${process.env.APP_URI}/admin/vehicle/reject/${vehicleID}`, { status: "rejected" }, { headers: { Authorization: `Bearer ${token}` } });
 
-        res.json({ success: true, message: "Vehicle rejected successfully", data: response.data });
+        res.redirect(`/vehicle/${vehicleID}`);
     } catch (error) {
         res.status(500).json({ success: false, message: "Error rejecting vehicle", error: error.message });
     }
@@ -130,6 +133,7 @@ exports.deactivateVehicle = async(req, res) => {
 
 
 // Render edit vehicle form with current vehicle details
+
 // exports.getUpdatevehicleForm = async(req, res) => {
 //     try {
 //         const vehicleId = req.params.id; // Get vehicle ID from the route parameters
@@ -222,3 +226,29 @@ exports.deactivateVehicle = async(req, res) => {
 //         res.status(500).render('admin/vehicle/vehicle', { error: 'Error deleting vehicle.' });
 //     }
 // };
+
+
+
+// 
+
+
+
+exports.deleteVehicle = async(req, res) => {
+    let vehicleId 
+    try {
+        vehicleId = req.params.id
+        const token = req.cookies.token
+        const response = await axios.delete(`${process.env.APP_URI}/admin/vehicle/${vehicleId}`, {
+            headers: {
+                    Authorization: `Bearer ${token}`
+            }
+        })
+        res.json({msg: response.data})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+// alert need in deleteVechclle

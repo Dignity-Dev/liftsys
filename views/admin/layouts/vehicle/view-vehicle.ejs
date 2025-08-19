@@ -16,6 +16,13 @@
                     <div class="card bvehicle shadow-sm mb-4">
                         <div class="card-header bg-light d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">Vehicle ID: <strong> <%= vehicle[0].vehicleID %></strong></h5>
+                            <% if (vehicle[0].kycStatus == "approved") { %>
+                                <p class="bg-success text-white rounded px-1">Approved</p>
+                            <% } else if (vehicle[0].kycStatus == "rejected") { %>
+                                <p class="bg-danger text-white rounded px-1">Rejected</p>
+                            <% } else { %>
+                                <p class=""></p>
+                            <% } %>
                             <!-- <span class="badge bg-warning"> </span> -->
                         </div>
                         <div class="card-body">
@@ -45,7 +52,7 @@
                     </div>
                     <div class="mt-5 ">
                         <!-- check if the status of the vehicle is notactive -->
-                        <% if (vehicle[0].status === 'notactive') { %>
+                        <% if (vehicle[0].kycStatus === 'notactive') { %>
                             <!-- two button to approve or reject the vehicle -->
                             <div class="d-flex justify-content-center align-items-center">
                                 <button onclick="approveVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-primary">
@@ -74,7 +81,16 @@
                             <img src="<%= vehicle[0].vehiclePhoto %>" alt="vehicle image" width="100%">
                         </div>
                     </div>
+                   <a href="<%= vehicle[0].vehicleDocuments %>?alt=media" download class="btn btn-primary mt-4" style="float: right;">Click to download Vehicle Document</a>
                 </div>
+                 <div class="l d-flex align-items-center pt-3">
+                        <% if (vehicle[0].kycStatus == "approved") { %>
+                                 <a href="/reject-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-warning" style="margin-right: 40px;">Reject</a>
+                        <%  } else { %>
+                             <a href="/approve-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-primary" style="margin-right: 40px;">Approved</a>
+                        <% } %>
+                        <a href="/delete-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-danger">Delete Vechicle</a>
+                    </div>
             </div>
             <% } else { %>
                 <p class="text-muted">No vehicle information found.</p>
