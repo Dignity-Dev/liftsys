@@ -16,7 +16,7 @@
                 <div class="row g-4">
                     <div class="col-auto">
                         <div class="">
-                            <img src="/images/user.png" alt="user-img" class="img-thumbnail rounded-circle" width="150px" height="150px" />
+                            <img src="<%= fleet[0].passport%>" alt="user-img" class="img-thumbnail rounded-circle" width="150px" height="150px" />
                         </div>
                     </div>
                     <!--end col-->
@@ -89,7 +89,7 @@
                                                                     <%= fleet[0].emailAddress %>
                                                                 </td>
                                                             </tr>
-                                                        
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -103,12 +103,12 @@
                                     <div class="col-xxl-9">
                                         <div class="card">
                                             <div class="card-body">
-                                                <h5 class="card-title mb-3">About</h5>
+                                                <!-- <h5 class="card-title mb-3">About</h5>
                                                 <p>Hi I'm Sola Olatunde, It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what
-                                                    Occidental is European languages are members of the same family.</p> <hr>
+                                                    Occidental is European languages are members of the same family.</p> <hr> -->
 
                                                 <h5 class="card-title mt-3 pb-4">Fleet Verification</h5>
-                                              
+
                                                     <% if (fleet[0].verifiedByAdmin) { %>
                                                        <span class="badge bg-success">Verified</span>
                                                         </a>

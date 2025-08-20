@@ -78,18 +78,21 @@
                 <div class="col-md-8 col-xl-8">
                     <div class="card bvehicle shadow-sm mb-4">
                         <div class="card-body">
-                            <img src="<%= vehicle[0].vehiclePhoto %>" alt="vehicle image" width="100%">
+                            <img src="<%= vehicle[0].vehiclePhoto %>" alt="vehicle image" style="width: 100%; max-height:300px;">
                         </div>
                     </div>
-                   <a href="<%= vehicle[0].vehicleDocuments %>?alt=media" download class="btn btn-primary mt-4" style="float: right;">Click to download Vehicle Document</a>
-                </div>
-                 <div class="l d-flex align-items-center pt-3">
-                        <% if (vehicle[0].kycStatus == "approved") { %>
+                    <% if (vehicle[0].kycStatus == "approved") { %>
                                  <a href="/reject-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-warning" style="margin-right: 40px;">Reject</a>
                         <%  } else { %>
-                             <a href="/approve-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-primary" style="margin-right: 40px;">Approved</a>
+                             <a href="/approve-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-primary" style="margin-right: 40px;">Approve</a>
                         <% } %>
-                        <a href="/delete-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-danger">Delete Vechicle</a>
+
+                   <a href="<%= vehicle[0].vehicleDocuments %>?alt=media" download class="btn btn-primary mt-4" style="float: right;">Click to download Vehicle Document</a>
+                   &nbsp;&nbsp;&nbsp;
+                   <a href="/delete-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-danger">Delete Vechicle</a>
+                </div>
+                 <div class="l d-flex align-items-center pt-3">
+
                     </div>
             </div>
             <% } else { %>
