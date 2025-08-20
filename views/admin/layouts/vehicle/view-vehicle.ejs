@@ -8,22 +8,24 @@
                 <%= error %>
             </div>
         </div>
-        <% } else if (vehicle && vehicle.length > 0) { %>
+        <% } else if (vehicle && vehicle.length> 0) { %>
             <!-- Vehicle Section -->
             <div class="row">
                 <!-- Single vehicle Card -->
                 <div class="col-md-4 col-xl-4">
                     <div class="card bvehicle shadow-sm mb-4">
                         <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">Vehicle ID: <strong> <%= vehicle[0].vehicleID %></strong></h5>
-                            <% if (vehicle[0].kycStatus == "approved") { %>
+                            <h5 class="card-title mb-0">Vehicle ID: <strong>
+                                    <%= vehicle[0].vehicleID %>
+                                </strong></h5>
+                            <% if (vehicle[0].kycStatus=="approved" ) { %>
                                 <p class="bg-success text-white rounded px-1">Approved</p>
-                            <% } else if (vehicle[0].kycStatus == "rejected") { %>
-                                <p class="bg-danger text-white rounded px-1">Rejected</p>
-                            <% } else { %>
-                                <p class=""></p>
-                            <% } %>
-                            <!-- <span class="badge bg-warning"> </span> -->
+                                <% } else if (vehicle[0].kycStatus=="rejected" ) { %>
+                                    <p class="bg-danger text-white rounded px-1">Rejected</p>
+                                    <% } else { %>
+                                        <p class=""></p>
+                                        <% } %>
+                                            <!-- <span class="badge bg-warning"> </span> -->
                         </div>
                         <div class="card-body">
                             <p><strong>Vehicle Name:</strong>
@@ -50,50 +52,54 @@
                             <button onclick="window.history.back()" class="btn btn-primary btn-sm">Back</button>
                         </div>
                     </div>
-                    <div class="mt-5 ">
-                        <!-- check if the status of the vehicle is notactive -->
-                        <% if (vehicle[0].kycStatus === 'notactive') { %>
-                            <!-- two button to approve or reject the vehicle -->
-                            <div class="d-flex justify-content-center align-items-center">
-                                <button onclick="approveVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-primary">
-                                    <i class="fa fa-check"></i> Approve this vehicle
-                                </button>
-                                <span class="mx-10"></span>
-                                <button onclick="rejectVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-danger">
-                                    <i class="fa fa-ban"></i> Reject this vehicle
-                                </button>
-                            </div>
-                            <% } %>
-                                <!-- check if the status of the vehicle is active -->
-                                <% if (vehicle[0].status === 'active') { %>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <button onclick="deactivateVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-danger btn-sm">
-                                            Deactivate
-                                        </button>
-                                    </div>
-                                    <% } %>
-                    </div>
                 </div>
 
                 <div class="col-md-8 col-xl-8">
                     <div class="card bvehicle shadow-sm mb-4">
                         <div class="card-body">
-                            <img src="<%= vehicle[0].vehiclePhoto %>" alt="vehicle image" style="width: 100%; max-height:300px;">
+                            <img src="<%= vehicle[0].vehiclePhoto %>" alt="vehicle image"
+                                style="width: 100%; max-height:500px; object-fit: cover; border-radius: 10px;">
                         </div>
                     </div>
-                    <% if (vehicle[0].kycStatus == "approved") { %>
-                                 <a href="/reject-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-warning" style="margin-right: 40px;">Reject</a>
-                        <%  } else { %>
-                             <a href="/approve-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-primary" style="margin-right: 40px;">Approve</a>
+                    <!-- check if the status of the vehicle is notactive -->
+                    <% if (vehicle[0].kycStatus==='notactive' ) { %>
+                        <!-- two button to approve or reject the vehicle -->
+                        <button onclick="approveVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-primary">
+                            <i class="fa fa-check"></i> Approve this vehicle
+                        </button>
+                        <span class="mx-10"></span>
+                        <button onclick="rejectVehicle(event, '<%= vehicle[0].vehicleID %>')" class="btn btn-danger">
+                            <i class="fa fa-ban"></i> Reject this vehicle
+                        </button>
+
                         <% } %>
+                            <!-- check if the status of the vehicle is active -->
+                            <% if (vehicle[0].status==='active' ) { %>
+                                <button onclick="deactivateVehicle(event, '<%= vehicle[0].vehicleID %>')"
+                                    class="btn btn-danger btn-sm">
+                                    Deactivate
+                                </button>
 
-                   <a href="<%= vehicle[0].vehicleDocuments %>?alt=media" download class="btn btn-primary mt-4" style="float: right;">Click to download Vehicle Document</a>
-                   &nbsp;&nbsp;&nbsp;
-                   <a href="/delete-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-danger">Delete Vechicle</a>
+                                <% } %>
+
+                                    <% if (vehicle[0].kycStatus=="approved" ) { %>
+                                        <a href="/reject-vechicle/<%= vehicle[0].vehicleID  %>" class="btn btn-warning"
+                                            style="margin-right: 40px;">Reject</a>
+                                        <% } else { %>
+                                            <a href="/approve-vechicle/<%= vehicle[0].vehicleID  %>"
+                                                class="btn btn-primary" style="margin-right: 40px;">Approve</a>
+                                            <% } %>
+
+                                                <a href="<%= vehicle[0].vehicleDocuments %>?alt=media" download
+                                                    class="btn btn-primary mt-4" style="float: right;">Click to download
+                                                    Vehicle Document</a>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <a href="/delete-vechicle/<%= vehicle[0].vehicleID  %>"
+                                                    class="btn btn-danger">Delete Vechicle</a>
                 </div>
-                 <div class="l d-flex align-items-center pt-3">
+                <div class="l d-flex align-items-center pt-3">
 
-                    </div>
+                </div>
             </div>
             <% } else { %>
                 <p class="text-muted">No vehicle information found.</p>
@@ -117,11 +123,11 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`/vehicle/approve/${vehicleID}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    })
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -149,11 +155,11 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`/vehicle/reject/${vehicleID}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    })
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -181,11 +187,11 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`/vehicle/deactivate/${vehicleID}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    })
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
