@@ -36,7 +36,7 @@ exports.getAwaitingVehicle = async(req, res) => {
         });
 
         const vehicle = response.data.data || [];;
-        const awaitingVehicles = vehicle.filter(v => v.status === 'pending');
+        const awaitingVehicles = vehicle.filter(v => v.kycStatus === 'pending');
         res.render('admin/components/vehicle/awaiting-vehicle', { vehicle: awaitingVehicles, error: awaitingVehicles.length === 0 ? 'No awaiting vehicles available.' : null });
     } catch (error) {
         if (error.response && error.response.status === 401) {

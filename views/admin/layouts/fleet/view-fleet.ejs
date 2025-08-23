@@ -11,12 +11,13 @@
                 <%= error %>
             </div>
         </div>
-        <% } else if (fleet && fleet.length > 0) { %>
+        <% } else if (fleet && fleet.length> 0) { %>
             <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
                 <div class="row g-4">
                     <div class="col-auto">
                         <div class="">
-                            <img src="<%= fleet[0].passport%>" alt="user-img" class="img-thumbnail rounded-circle" width="150px" height="150px" />
+                            <img src="<%= fleet[0].passport%>" alt="user-img" class="img-thumbnail rounded-circle"
+                                width="150px" height="150px" />
                         </div>
                     </div>
                     <!--end col-->
@@ -27,12 +28,12 @@
                             </h3>
                             <p class="text-black text-opacity-75">fleet</p>
                             <% if (fleet[0].verifiedByAdmin) { %>
-                                        <span class="badge bg-success">Verified</span>
-                                    <% } else { %>
-                                        <span class="badge bg-danger">Unverify</span>
+                                <span class="badge bg-success">Verified</span>
+                                <% } else { %>
+                                    <span class="badge bg-danger">Unverify</span>
                                     <% } %>
-                            <div class="hstack text-black-50 gap-1">
-                            </div>
+                                        <div class="hstack text-black-50 gap-1">
+                                        </div>
                         </div>
                     </div>
                 </div>
@@ -44,14 +45,17 @@
                     <div>
                         <div class="d-flex align-center profile-wrapper">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
+                            <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1"
+                                role="tablist">
                                 <li class="nav-item">
                                     <button class="btn btn-success" onclick="window.history.back()">
                                         <i class="ri-arrow-go-back-fill"></i> Back </button>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-14 active" data-bs-toggle="tab" href="#overview-tab" role="tab">
-                                        <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Overview</span>
+                                    <a class="nav-link fs-14 active" data-bs-toggle="tab" href="#overview-tab"
+                                        role="tab">
+                                        <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span
+                                            class="d-none d-md-inline-block">Overview</span>
                                     </a>
                                 </li>
                             </ul>
@@ -103,47 +107,72 @@
                                     <div class="col-xxl-9">
                                         <div class="card">
                                             <div class="card-body">
-                                                <!-- <h5 class="card-title mb-3">About</h5>
-                                                <p>Hi I'm Sola Olatunde, It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what
-                                                    Occidental is European languages are members of the same family.</p> <hr> -->
 
                                                 <h5 class="card-title mt-3 pb-4">Fleet Verification</h5>
-
-                                                    <% if (fleet[0].verifiedByAdmin) { %>
-                                                       <span class="badge bg-success">Verified</span>
-                                                        </a>
-                                                    <% } else { %>
-                                                        <a href="/verify-fleet/<%= fleet[0].fleetID %>" class="btn btn-outline-primary"
-                                                        onclick="return confirm('Are you sure you want to verify this fleet?');">
-                                                        Verify Fleet
-                                                        </a>
-                                                    <% } %>
-
-                                                    <br> <br>
-                                                    <h5 class="card-title mt-3 pb-4">Manage Fleet</h5>
-
-                                                    <div class="d-flex align-center g-4 m-2">
-                                                        <div class="a px-4">
-                                                            <% if (fleet[0].suspendStatus === "suspended") { %>
-                                                            <a href="/unsuspend-fleet/<%= fleet[0].fleetID %>" class="btn btn-outline-primary"
-                                                                onclick="return confirm('Are you sure you want to suspend this fleet?');">
-                                                                unsuspend Fleet
-                                                            </a>
-                                                        <% } else { %>
-                                                            <a href="/suspend-fleet/<%= fleet[0].fleetID %>" class="btn btn-outline-danger"
-                                                            onclick="return confirm('Are you sure you want to suspend this fleet?');">
-                                                            Suspend Fleet
-                                                            </a>
-                                                        <% } %>
-                                                        </div>
-                                                        <div class="a px-5">
-                                                            <a href="/delete-fleet/<%= fleet[0].fleetID %>" class="btn btn-danger"
-                                                                onclick="return confirm('Once you delete this action cannot be reverse');">
-                                                                Delete Fleet
-                                                            </a>
-                                                        </div>
+                                                <div class="row mb-3">
+                                                    <h4>Document Check (download)</h4>
+                                                    <div class="col-md-3">
+                                                        <a href="<%= fleet[0].cacC1Form %>"
+                                                            download="<%= fleet[0].cacC1Form %>.pdf"
+                                                            class="btn btn-primary mt-3 col-12" target="_blank">CAC Form
+                                                            1</a>
                                                     </div>
-                                                <!--end row-->
+                                                    <div class="col-md-3">
+                                                        <a href="<%= fleet[0].cacCert %>"
+                                                            download="<%= fleet[0].cacCert %>.pdf"
+                                                            class="btn btn-primary mt-3 col-12" target="_blank">CAC
+                                                            Certificate</a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="<%= fleet[0].governmentId %>"
+                                                            download="<%= fleet[0].governmentId %>.pdf"
+                                                            class="btn btn-primary mt-3 col-12"
+                                                            target="_blank">Goverment ID</a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="<%= fleet[0].proofOfAddress %>"
+                                                            download="<%= fleet[0].proofOfAddress %>.pdf"
+                                                            class="btn btn-primary mt-3 col-12" target="_blank">Proof of
+                                                            Address</a>
+                                                    </div>
+                                                </div>
+                                                <h5 class="card-title mt-3 pb-4">Manage Fleet</h5>
+                                                <% if (fleet[0].verifiedByAdmin) { %>
+                                                    <span class="badge bg-success">Verified</span>
+                                                    </a>
+                                                    <% } else { %>
+                                                        <a href="/verify-fleet/<%= fleet[0].fleetID %>"
+                                                            class="btn btn-outline-primary"
+                                                            onclick="return confirm('Are you sure you want to verify this fleet?');">
+                                                            Verify Fleet
+                                                        </a>
+                                                        <% } %>
+
+                                                            <div class="d-flex align-center g-4 m-2">
+                                                                <div class="a px-4">
+                                                                    <% if (fleet[0].suspendStatus==="suspended" ) { %>
+                                                                        <a href="/unsuspend-fleet/<%= fleet[0].fleetID %>"
+                                                                            class="btn btn-outline-primary"
+                                                                            onclick="return confirm('Are you sure you want to suspend this fleet?');">
+                                                                            unsuspend Fleet
+                                                                        </a>
+                                                                        <% } else { %>
+                                                                            <a href="/suspend-fleet/<%= fleet[0].fleetID %>"
+                                                                                class="btn btn-outline-danger"
+                                                                                onclick="return confirm('Are you sure you want to suspend this fleet?');">
+                                                                                Suspend Fleet
+                                                                            </a>
+                                                                            <% } %>
+                                                                </div>
+                                                                <div class="a px-5">
+                                                                    <a href="/delete-fleet/<%= fleet[0].fleetID %>"
+                                                                        class="btn btn-danger"
+                                                                        onclick="return confirm('Once you delete this action cannot be reverse');">
+                                                                        Delete Fleet
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <!--end row-->
                                             </div>
                                             <!--end card-body-->
                                         </div>

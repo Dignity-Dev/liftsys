@@ -170,8 +170,8 @@ exports.verifyFleet = async (req, res) => {
             const fleets = response.data
             if(!fleets) {
                 return res.status(404).render('admin/components/fleet/view-fleet',
-                     { 
-                    fleets: null, 
+                     {
+                    fleets: null,
                     error: 'Error occur while Verify the fleet'
                 });
             }
@@ -198,8 +198,8 @@ exports.suspendFleet = async (req, res) => {
             const fleets = response.data
             if(!fleets) {
                 return res.status(404).render('admin/components/fleet/view-fleet',
-                     { 
-                    fleets: null, 
+                     {
+                    fleets: null,
                     error: 'Error occur while Verify the fleet'
                 });
             }
@@ -226,8 +226,8 @@ exports.unsuspendfleet = async (req, res) => {
             const fleets = response.data
             if(!fleets) {
                 return res.status(404).render('admin/components/fleet/view-fleet',
-                     { 
-                    fleets: null, 
+                     {
+                    fleets: null,
                     error: 'Error occur while Verify the fleet'
                 });
             }
@@ -239,7 +239,7 @@ exports.unsuspendfleet = async (req, res) => {
 };
 
 
-// remain alert to display in manage fleet 
+// remain alert to display in manage fleet
 exports.deleteFleet = async(req, res) => {
     let fleetId
     try {
